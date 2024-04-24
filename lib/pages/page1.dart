@@ -2,6 +2,7 @@ import 'package:challenge2/pages/page2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({super.key});
@@ -10,62 +11,80 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-class Infos {
+class Infos { //extender ChangeNotifier? -> criar um void changeFavImage
   String name;
   String email;
   String profileImage;
   String contact;
+  bool favorito;
 
   Infos({
     required this.name,
     required this.email,
     required this.profileImage,
     required this.contact,
+    required this.favorito,
   });
 }
 
 final List<Infos> profiles = [
   //lista profiles do tipo Infos
   Infos(
-      name: 'Isabela',
-      email: 'isabela@gmail.com',
-      profileImage: 'assets/image/img2.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Isabela',
+    email: 'isabela@gmail.com',
+    profileImage: 'assets/image/img2.jpg',
+    contact: '(62) 99999-9999',
+    favorito: true,
+  ),
   Infos(
-      name: 'Vinicius',
-      email: 'vinicius@gmail.com',
-      profileImage: 'assets/image/img3.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Vinicius',
+    email: 'vinicius@gmail.com',
+    profileImage: 'assets/image/img3.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
   Infos(
-      name: 'Regina',
-      email: 'regina@gmail.com',
-      profileImage: 'assets/image/img4.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Regina',
+    email: 'regina@gmail.com',
+    profileImage: 'assets/image/img4.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
   Infos(
-      name: 'Guilherme',
-      email: 'guilherme@gmail.com',
-      profileImage: 'assets/image/img5.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Guilherme',
+    email: 'guilherme@gmail.com',
+    profileImage: 'assets/image/img5.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
   Infos(
-      name: 'Lucas',
-      email: 'lucas@gmail.com',
-      profileImage: 'assets/image/img6.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Lucas',
+    email: 'lucas@gmail.com',
+    profileImage: 'assets/image/img6.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
   Infos(
-      name: 'Havila',
-      email: 'havila@gmail.com',
-      profileImage: 'assets/image/img7.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Havila',
+    email: 'havila@gmail.com',
+    profileImage: 'assets/image/img7.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
   Infos(
-      name: 'Fernando',
-      email: 'fernando@gmail.com',
-      profileImage: 'assets/image/img8.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Fernando',
+    email: 'fernando@gmail.com',
+    profileImage: 'assets/image/img8.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
   Infos(
-      name: 'Natalia',
-      email: 'natalia@gmail.com',
-      profileImage: 'assets/image/img9.jpg',
-      contact: '(62) 99999-9999'),
+    name: 'Natalia',
+    email: 'natalia@gmail.com',
+    profileImage: 'assets/image/img9.jpg',
+    contact: '(62) 99999-9999',
+    favorito: false,
+  ),
 ];
 
 class _Page1State extends State<Page1> {
@@ -202,6 +221,16 @@ class _Page1State extends State<Page1> {
                                     ),
                                   ),
                                 ),
+                                Container( //tá funcionando só não aparece ainda
+                                  child: IconButton(
+                                    icon: SvgPicture.asset('assets/icons/vector.svg'),
+                                    iconSize: 15,
+                                    onPressed: () {
+                                      // favorito = !favorito; //setta o estado no clique
+                                      // setState(() {});
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -211,19 +240,16 @@ class _Page1State extends State<Page1> {
                               icon: const Icon(Icons.arrow_forward_ios),
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    settings: RouteSettings(
-                                        name: 'page1',
-                                        arguments: {
-                                          'name': profiles[index].name,
-                                          'email': profiles[index].email,
-                                          'profileImage':
-                                              profiles[index].profileImage,
-                                          'contact': profiles[index].contact,
-                                          // (profiles[index].name),
-                                          // (profiles[index].email),
-                                          // (profiles[index].profileImage),
-                                        }),
-                                    builder: (context) => Page2()));
+                                    // settings: RouteSettings(
+                                    //     name: 'page1',
+                                    //     arguments: {
+                                    //       'name': profiles[index].name,
+                                    //       'email': profiles[index].email,
+                                    //       'profileImage':
+                                    //           profiles[index].profileImage,
+                                    //       'contact': profiles[index].contact,
+                                    //     }),
+                                    builder: (context) => Page2(user: profiles[index],)));
                               },
                             ),
                           ),
