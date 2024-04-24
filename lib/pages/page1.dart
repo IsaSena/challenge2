@@ -34,7 +34,7 @@ final List<Infos> profiles = [
     email: 'isabela@gmail.com',
     profileImage: 'assets/image/img2.jpg',
     contact: '(62) 99999-9999',
-    favorito: true,
+    favorito: false,
   ),
   Infos(
     name: 'Vinicius',
@@ -90,6 +90,7 @@ final List<Infos> profiles = [
 class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
+    print('Oi');
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -222,8 +223,8 @@ class _Page1State extends State<Page1> {
                                   ),
                                 ),
                                 Container( //tá funcionando só não aparece ainda
-                                  child: IconButton(
-                                    icon: SvgPicture.asset('assets/icons/vector.svg'),
+                                  child: IconButton( // analisa se foi modificado?
+                                    icon: SvgPicture.asset(profiles[index].favorito ? 'assets/icons/yellowVector.svg' : 'assets/icons/vector.svg'),
                                     iconSize: 15,
                                     onPressed: () {
                                       // favorito = !favorito; //setta o estado no clique
@@ -249,8 +250,20 @@ class _Page1State extends State<Page1> {
                                     //           profiles[index].profileImage,
                                     //       'contact': profiles[index].contact,
                                     //     }),
-                                    builder: (context) => Page2(user: profiles[index],)));
-                              },
+
+                                    builder: (context) => Page2(user: profiles[index],),),).then((value) {
+                                      //executa apos o pop ocorrer
+                                  //profiles[index].favorito = (value as Map) ['favorito'];
+                                  if(profiles[index].favorito == true){
+                                    setState(() {
+                                      profiles[index].favorito == true;
+                                    });
+                                    //print(profiles[index].favorito);
+                                  }
+                                  print('aaaaaa');
+                                });
+                                print('alo');
+                                },
                             ),
                           ),
                           // Container(

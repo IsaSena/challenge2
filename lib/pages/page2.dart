@@ -129,11 +129,15 @@ class _Page2State extends State<Page2> {
                       ),
                       Container(
                         child: IconButton(
-                          icon: SvgPicture.asset(favorito ? 'assets/icons/vector.svg' : 'assets/icons/yellowVector.svg'),
+                          icon: SvgPicture.asset(favorito ? 'assets/icons/yellowVector.svg' : 'assets/icons/vector.svg'),
                           iconSize: 30,
                           onPressed: () {
                             favorito = !favorito; //setta o estado no clique
-                            setState(() {});
+                            print(favorito);
+                            setState(() {
+                              widget.user.favorito = favorito;
+                              print(widget.user.favorito);
+                            });
 
                           },
                         ),
