@@ -1,4 +1,6 @@
+import 'package:challenge2/pages/cadastro.dart';
 import 'package:challenge2/pages/page1.dart';
+import 'package:challenge2/pages/page2.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Page1(),
+      routes: {
+        '/' : (_) => Page1(),
+        //'/page2' : (_) => Page2(user: user),
+        '/cadastro' : (_) => Cadastro(),
+      },
     );
   }
 }

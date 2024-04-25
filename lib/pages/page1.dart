@@ -1,5 +1,4 @@
 import 'package:challenge2/pages/page2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +10,8 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-class Infos { //extender ChangeNotifier? -> criar um void changeFavImage
+class Infos {
+  //extender ChangeNotifier? -> criar um void changeFavImage
   String name;
   String email;
   String profileImage;
@@ -90,14 +90,14 @@ final List<Infos> profiles = [
 class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
-    print('Oi');
+    //print('Oi');
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
                 ),
@@ -115,9 +115,9 @@ class _Page1State extends State<Page1> {
                     height: 56,
                     width: 56,
                     //margin: EdgeInsets.only(left: 22, top: 40, bottom: 28),
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage('assets/image/img1.jpg'),
                         fit: BoxFit.fill,
                       ),
@@ -125,21 +125,21 @@ class _Page1State extends State<Page1> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 40),
+                    margin: const EdgeInsets.only(left: 40),
                     child: Column(
                       //space between ou center
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          child: Text(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: const Text(
                             'Lorem Ipsum da Silva',
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                          margin: EdgeInsets.only(bottom: 10),
                         ),
                         Container(
-                          child: Text(
+                          child: const Text(
                             'LoremIpsum@loremIpsum.com.br',
                             style: TextStyle(
                               fontSize: 12,
@@ -156,8 +156,8 @@ class _Page1State extends State<Page1> {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 20, top: 20),
-                  child: Text(
+                  margin: const EdgeInsets.only(left: 20, top: 20),
+                  child: const Text(
                     'Contatos vinculados',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left,
@@ -166,121 +166,171 @@ class _Page1State extends State<Page1> {
               ],
             ),
             Expanded(
-              //Com container não funciona, pq? Container tem que dar altura?
-              child: Container(
-                height: 100,
+              //expande ao máximo
+              child: SizedBox(
+                //height: 100,
                 width: double.infinity,
                 child: ListView.builder(
-                  itemCount: 8,
+                  itemCount: profiles.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      height: 130,
-                      width: double.infinity,
-                      child: Row(
-                        //alinhar a foto
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 56,
-                            width: 56,
-                            margin: EdgeInsets.symmetric(horizontal: 20),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    '${profiles[index].profileImage}'),
-                                fit: BoxFit.fill,
-                              ),
-                              borderRadius: BorderRadius.circular(50),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(
+                          MaterialPageRoute(
+                            builder: (context) => Page2(
+                              user: profiles[index],
                             ),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            //how should i use this in a better way?
-                            margin: EdgeInsets.only(left: 40),
-                            child: Column(
-                              //space between ou center
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    '${profiles[index].name}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  margin: EdgeInsets.only(bottom: 10),
-                                ),
-                                Container(
-                                  child: Text(
-                                    '${profiles[index].email}',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                Container( //tá funcionando só não aparece ainda
-                                  child: IconButton( // analisa se foi modificado?
-                                    icon: SvgPicture.asset(profiles[index].favorito ? 'assets/icons/yellowVector.svg' : 'assets/icons/vector.svg'),
-                                    iconSize: 15,
-                                    onPressed: () {
-                                      // favorito = !favorito; //setta o estado no clique
-                                      // setState(() {});
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 84),
-                            child: IconButton(
-                              icon: const Icon(Icons.arrow_forward_ios),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    // settings: RouteSettings(
-                                    //     name: 'page1',
-                                    //     arguments: {
-                                    //       'name': profiles[index].name,
-                                    //       'email': profiles[index].email,
-                                    //       'profileImage':
-                                    //           profiles[index].profileImage,
-                                    //       'contact': profiles[index].contact,
-                                    //     }),
-
-                                    builder: (context) => Page2(user: profiles[index],),),).then((value) {
-                                      //executa apos o pop ocorrer
-                                  //profiles[index].favorito = (value as Map) ['favorito'];
-                                  if(profiles[index].favorito == true){
-                                    setState(() {
-                                      profiles[index].favorito == true;
-                                    });
-                                    //print(profiles[index].favorito);
-                                  }
-                                  print('aaaaaa');
-                                });
-                                print('alo');
+                        )
+                            .then(
+                              (value) {
+                            //executa apos o pop ocorrer
+                            if (profiles[index].favorito == true) {
+                              setState(
+                                    () {
+                                  profiles[index].favorito == true;
                                 },
+                              );
+                              //print(profiles[index].favorito);
+                            }
+                            //print('aaaaaa');
+                          },
+                        );
+                      },
+                      child: SizedBox(
+                        height: 130,
+                        width: double.infinity,
+                        child: Row(
+                          //alinhar a foto
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 56,
+                              width: 56,
+                              margin: const EdgeInsets.symmetric(horizontal: 20),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(profiles[index].profileImage),
+                                  fit: BoxFit.fill,
+                                ),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
                             ),
-                          ),
-                          // Container(
-                          //   margin: EdgeInsets.only(left: 84),
-                          //   child: Icon(Icons.arrow_forward_ios),
-                          //
-                          // ),
-                        ],
+                            Expanded(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                //how should i use this in a better way?
+                                margin: const EdgeInsets.only(left: 40),
+                                child: Column(
+                                  //space between ou center
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      child: Text(
+                                        profiles[index].name,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        profiles[index].email,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    profiles[index].favorito
+                                        ? Container(
+                                          margin: EdgeInsets.only(top: 6),
+                                            child: SvgPicture.asset(
+                                                'assets/icons/yellowVector.svg')
+                                            // child: IconButton(
+                                            //   icon: SvgPicture.asset(
+                                            //       profiles[index].favorito
+                                            //           ? 'assets/icons/yellowVector.svg'
+                                            //           : 'assets/icons/vector.svg'),
+                                            //   iconSize: 15,
+                                            //   onPressed: null, //tira o onPressed
+                                            // ),
+                                            )
+                                        : Container(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            // Container(
+                            //   margin: const EdgeInsets.only(left: 10),
+                            //   child: IconButton(
+                            //     icon: const Icon(Icons.arrow_forward_ios),
+                            //     onPressed: () {
+                            //       Navigator.of(context)
+                            //           .push(
+                            //         MaterialPageRoute(
+                            //           // settings: RouteSettings(
+                            //           //     name: 'page1',
+                            //           //     arguments: {
+                            //           //       'name': profiles[index].name,
+                            //           //       'email': profiles[index].email,
+                            //           //       'profileImage':
+                            //           //           profiles[index].profileImage,
+                            //           //       'contact': profiles[index].contact,
+                            //           //     }),
+                            //           builder: (context) => Page2(
+                            //             user: profiles[index],
+                            //           ),
+                            //         ),
+                            //       )
+                            //           .then(
+                            //         (value) {
+                            //           //executa apos o pop ocorrer
+                            //           if (profiles[index].favorito == true) {
+                            //             setState(
+                            //               () {
+                            //                 profiles[index].favorito == true;
+                            //               },
+                            //             );
+                            //             //print(profiles[index].favorito);
+                            //           }
+                            //           //print('aaaaaa');
+                            //         },
+                            //       );
+                            //       //print('alo');
+                            //     },
+                            //   ),
+                            // ),
+                              const IconButton(icon: Icon(Icons.arrow_forward_ios_rounded),
+                              onPressed: null,
+                              ),
+                          ],
+                        ),
                       ),
                     );
                   },
                 ),
               ),
             ),
+            // FloatingActionButton(
+            //     child: Icon(Icons.add),
+            //     onPressed: (){})
           ],
         ),
       ),
+      floatingActionButton : FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: (){
+            Navigator.of(context).pushNamed('/cadastro');
+          }),
+
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
