@@ -249,7 +249,7 @@ class _Page1State extends State<Page1> {
                                     ),
                                     profiles[index].favorito
                                         ? Container(
-                                          margin: EdgeInsets.only(top: 6),
+                                          margin: const EdgeInsets.only(top: 6),
                                             child: SvgPicture.asset(
                                                 'assets/icons/yellowVector.svg')
                                             // child: IconButton(
@@ -324,7 +324,7 @@ class _Page1State extends State<Page1> {
         ),
       ),
       floatingActionButton : FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onPressed: (){
             Navigator.of(context).pushNamed('/cadastro');
           }),

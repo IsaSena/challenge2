@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// final ButtonStyle style = ElevatedButton.styleFrom(
-//   textStyle: const TextStyle(fontSize: 22),
-//   backgroundColor: Themes.Azul,
-// );
+final ButtonStyle style = ElevatedButton.styleFrom(
+  textStyle: const TextStyle(fontSize: 22),
+  backgroundColor: Themes.Azul,
+);
 
 class Page2 extends StatefulWidget {
   final Infos user; //Traz todos os parâmetros dentro de user da page 1
