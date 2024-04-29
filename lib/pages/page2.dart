@@ -2,6 +2,7 @@ import 'package:challenge2/pages/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:challenge2/pages/infos.dart';
 
 final ButtonStyle style = ElevatedButton.styleFrom(
   textStyle: const TextStyle(fontSize: 22),

@@ -1,7 +1,9 @@
+import 'package:challenge2/pages/cadastro.dart';
 import 'package:challenge2/pages/page2.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:challenge2/pages/infos.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({super.key});
@@ -10,22 +12,22 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-class Infos {
-  //extender ChangeNotifier? -> criar um void changeFavImage
-  String name;
-  String email;
-  String profileImage;
-  String contact;
-  bool favorito;
-
-  Infos({
-    required this.name,
-    required this.email,
-    required this.profileImage,
-    required this.contact,
-    required this.favorito,
-  });
-}
+// class Infos {
+//   //extender ChangeNotifier? -> criar um void changeFavImage
+//   String name;
+//   String email;
+//   String profileImage;
+//   String contact;
+//   bool favorito;
+//
+//   Infos({
+//     required this.name,
+//     required this.email,
+//     this.profileImage = 'assets/image/img2.jpg' ,
+//     required this.contact,
+//     required this.favorito,
+//   });
+// }
 
 final List<Infos> profiles = [
   //lista profiles do tipo Infos
@@ -326,11 +328,38 @@ class _Page1State extends State<Page1> {
       floatingActionButton : FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: (){
-            Navigator.of(context).pushNamed('/cadastro');
+             //Navigator.of(context).pushNamed('/cadastro').then((value) =>{
+            //   // print()
+            //   //profiles.add()
+            // });
+            // setState(() {
+            //
+            // });
+            seila(context);
+
           }),
 
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  Future<void> seila(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.push(
+      context,
+      // Create the SelectionScreen in the next step.
+      MaterialPageRoute(builder: (context) => const Cadastro()),
+    );
+    // print('entrei');
+ setState(() {
+      profiles.add(result as Infos);
+    });
+    //profiles.add(result);
+    // for (var i = 0; i < profiles.length; i++) {
+    //   print(profiles[i].name);
+    // }
+    //print(profiles.;
   }
 }

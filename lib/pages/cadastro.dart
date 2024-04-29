@@ -1,3 +1,4 @@
+import 'package:challenge2/pages/infos.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -9,30 +10,29 @@ class Cadastro extends StatefulWidget {
   State<Cadastro> createState() => _CadastroState();
 }
 
-class newUser{ //classe de tipo novo usuário que será cadastrado e enviado ao page1
-  late final String name;
-  late final String email;
-  late final String contact;
-  late final bool favorito;
+// class newUser {
+//   //classe de tipo novo usuário que será cadastrado e enviado ao page1
+//   String name;
+//   String email;
+//   String contact;
+//   bool favorito;
+//
+//   newUser({
+//     required this.name,
+//     required this.email,
+//     required this.contact,
+//     required this.favorito,
+//   });
+// }
 
-    newUser({
-      required this.name,
-      required this.email,
-      required this.contact,
-      required this.favorito,
-  });
-}
-
-newUser user = new newUser( //cria o objeto de novo usuário
-  name: '',
-  email:'',
-  contact: '',
-  favorito: false,
-);
-
+// newUser user = new newUser( //cria o objeto de novo usuário
+//   name: '',
+//   email:'',
+//   contact: '',
+//   favorito: false,
+// );
 
 class _CadastroState extends State<Cadastro> {
-
   final _controllerContact = TextEditingController();
   final _controllerEmail = TextEditingController();
   final _controllerName = TextEditingController();
@@ -56,7 +56,7 @@ class _CadastroState extends State<Cadastro> {
 
   @override
   Widget build(BuildContext context) {
-    print(isChecked);
+    //print(isChecked);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -82,10 +82,10 @@ class _CadastroState extends State<Cadastro> {
                         Container(
                           margin: const EdgeInsets.only(left: 5),
                           child: IconButton(
-                            icon:const Icon(Icons.arrow_back_ios),
+                            icon: const Icon(Icons.arrow_back_ios),
                             iconSize: 24,
                             color: Colors.white,
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.of(context).pop();
                             },
                           ),
@@ -146,7 +146,8 @@ class _CadastroState extends State<Cadastro> {
                                     MediaQuery.of(context).size.height * 0.01),
                             width: MediaQuery.of(context).size.height * 0.428,
                             child: TextFormField(
-                              controller: _controllerName, //fica observando o campo de texto
+                              controller: _controllerName,
+                              //fica observando o campo de texto
                               //usar on Saved e validator
                               textCapitalization: TextCapitalization.words,
                               // onSaved: (value){
@@ -184,9 +185,7 @@ class _CadastroState extends State<Cadastro> {
                               //escuta o TextEditingController
                               inputFormatters: [telefoneFormatter],
                               //aplica a formatação
-                              onSaved: (String? value){
-          
-                              },
+                              onSaved: (String? value) {},
                               decoration: InputDecoration(
                                 border: const UnderlineInputBorder(),
                                 labelText: 'Informe o contato',
@@ -232,13 +231,14 @@ class _CadastroState extends State<Cadastro> {
                                     onChanged: (bool? value) {
                                       setState(() {
                                         isChecked = value!;
-                                        print(isChecked);
+                                        //print(isChecked);
                                       });
                                     }),
                                 const Text(
                                   'Favorito',
                                   style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -255,18 +255,15 @@ class _CadastroState extends State<Cadastro> {
                 child: ElevatedButton(
                   style: style,
                   onPressed: () {
-                    setState(() {
-                      user.name = _controllerName.toString();
-                      user.contact = _controllerContact.toString();
-                      user.email = _controllerEmail.toString();
-                      user.favorito = isChecked;
-                    });
-                    // user.name = _controllerName.toString();
-                    // user.contact = _controllerContact.toString();
-                    // user.email = _controllerEmail.toString();
-                    // user.favorito = isChecked;
-                    print(user.name);
-
+                    print('oi');
+                    Infos user = new Infos(
+                      //cria o objeto de user
+                      name: _controllerName.text,
+                      email: _controllerEmail.text,
+                      contact: _controllerContact.text,
+                      favorito: isChecked,
+                    );
+                    Navigator.of(context).pop(user); //passa o user
                   },
                   child: const Text(
                     'Confirmar',
