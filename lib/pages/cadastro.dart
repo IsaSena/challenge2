@@ -54,6 +54,8 @@ class _CadastroState extends State<Cadastro> {
     backgroundColor: Themes.Azul,
   );
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     //print(isChecked);
@@ -92,20 +94,17 @@ class _CadastroState extends State<Cadastro> {
                         ),
                       ],
                     ),
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            //cadastro
-                            child: const Text(
-                              'Cadastrar Usuário',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
+                          Text(
+                            'Cadastrar Usuário',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -123,127 +122,133 @@ class _CadastroState extends State<Cadastro> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Nome completo',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      const Text(
+                        'Nome completo',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.01,
+                            bottom:
+                                MediaQuery.of(context).size.height * 0.01),
+                        width: MediaQuery.of(context).size.height * 0.428,
+                        child: TextFormField(
+                          controller: _controllerName,
+                          //fica observando o campo de texto
+                          //usar on Saved e validator
+                          textCapitalization: TextCapitalization.words,
+                          // onSaved: (value){
+                          // },
+                          validator: (value) {
+                            return (value == null || value.isEmpty)
+                                ? 'Preencha o campo com o dado solicitado!'
+                                : null;
+                          },
+                          decoration: InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            labelText: 'Informe o nome completo',
+                            fillColor: Themes.Cinza,
+                            filled: true,
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            width: MediaQuery.of(context).size.height * 0.428,
-                            child: TextFormField(
-                              controller: _controllerName,
-                              //fica observando o campo de texto
-                              //usar on Saved e validator
-                              textCapitalization: TextCapitalization.words,
-                              // onSaved: (value){
-                              // },
-                              validator: (value) {
-                                return (value == null || value.isEmpty)
-                                    ? 'Preencha os campos com os dados solicitados!'
-                                    : null;
-                              },
-                              decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                labelText: 'Informe o nome completo',
-                                fillColor: Themes.Cinza,
-                                filled: true,
-                              ),
-                            ),
+                        ),
+                      ),
+                      const Text(
+                        'Contato',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.01,
+                            bottom:
+                                MediaQuery.of(context).size.height * 0.01),
+                        width: MediaQuery.of(context).size.height * 0.428,
+                        child: TextFormField(
+                          //usar on Saved e validator
+                          keyboardType: TextInputType.number,
+                          controller: _controllerContact,
+                          //escuta o TextEditingController
+                          inputFormatters: [telefoneFormatter],
+                          //aplica a formatação
+                          onSaved: (String? value) {},
+                          decoration: InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            labelText: 'Informe o contato',
+                            fillColor: Themes.Cinza,
+                            filled: true,
                           ),
-                          const Text(
-                            'Contato',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          validator: (value) {
+                            return (value == null || value.isEmpty || value.length == 14)
+                                ? 'Preencha o campo com o dado solicitado!'
+                                : null;
+                          },
+                        ),
+                      ),
+                      const Text(
+                        'E-mail',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.01,
+                            bottom:
+                                MediaQuery.of(context).size.height * 0.01),
+                        width: MediaQuery.of(context).size.height * 0.428,
+                        child: TextFormField(
+                          controller: _controllerEmail,
+                          //usar on Saved e validator
+                          decoration: InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            labelText: 'Informe o email do usuário',
+                            fillColor: Themes.Cinza,
+                            filled: true,
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            width: MediaQuery.of(context).size.height * 0.428,
-                            child: TextFormField(
-                              //usar on Saved e validator
-                              keyboardType: TextInputType.number,
-                              controller: _controllerContact,
-                              //escuta o TextEditingController
-                              inputFormatters: [telefoneFormatter],
-                              //aplica a formatação
-                              onSaved: (String? value) {},
-                              decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                labelText: 'Informe o contato',
-                                fillColor: Themes.Cinza,
-                                filled: true,
-                              ),
+                          validator: (value) {
+                            return (value == null || value.isEmpty)
+                                ? 'Preencha o campo com o dado solicitado!'
+                                : null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.03),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                                //depois verificar a cor de fundo
+                                checkColor: Colors.black,
+                                //fillColor: ,
+                                value: isChecked,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                    //print(isChecked);
+                                  });
+                                }),
+                            const Text(
+                              'Favorito',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          const Text(
-                            'E-mail',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.01,
-                                bottom:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            width: MediaQuery.of(context).size.height * 0.428,
-                            child: TextFormField(
-                              controller: _controllerEmail,
-                              //usar on Saved e validator
-                              decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                labelText: 'Informe o email do usuário',
-                                fillColor: Themes.Cinza,
-                                filled: true,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.03),
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                    //depois verificar a cor de fundo
-                                    checkColor: Colors.black,
-                                    //fillColor: ,
-                                    value: isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        isChecked = value!;
-                                        //print(isChecked);
-                                      });
-                                    }),
-                                const Text(
-                                  'Favorito',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -255,15 +260,25 @@ class _CadastroState extends State<Cadastro> {
                 child: ElevatedButton(
                   style: style,
                   onPressed: () {
-                    print('oi');
-                    Infos user = new Infos(
-                      //cria o objeto de user
-                      name: _controllerName.text,
-                      email: _controllerEmail.text,
-                      contact: _controllerContact.text,
-                      favorito: isChecked,
-                    );
-                    Navigator.of(context).pop(user); //passa o user
+                    if(_formKey.currentState!.validate() == true){
+                      Infos user = new Infos(
+                        //cria o objeto de user
+                        name: _controllerName.text,
+                        email: _controllerEmail.text,
+                        contact: _controllerContact.text,
+                        favorito: isChecked,
+                      );
+                      Navigator.of(context).pop(user);
+                    }
+                    _formKey.currentState!.validate();
+                    // Infos user = new Infos(
+                    //   //cria o objeto de user
+                    //   name: _controllerName.text,
+                    //   email: _controllerEmail.text,
+                    //   contact: _controllerContact.text,
+                    //   favorito: isChecked,
+                    // );
+                    //Navigator.of(context).pop(user); //passa o user
                   },
                   child: const Text(
                     'Confirmar',

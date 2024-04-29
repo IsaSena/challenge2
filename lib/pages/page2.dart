@@ -125,7 +125,30 @@ class _Page2State extends State<Page2> {
                             iconSize: 30,
                             color: Colors.white,
                             icon: const Icon(Icons.delete_outline_sharp),
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Remover Usuário'),
+                                    content: Text('Gostaria de remover o usuário ${widget.user.name} ?'),
+                                    actions: [
+                                      TextButton(onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }, child: Text('Cancelar'),),
+                                      TextButton(onPressed: () {
+                                        profiles.remove(widget.user);
+                                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Page1(),),);
+                                      }, child: Text('Remover'),),
+                                    ],
+                                  );
+                                },
+                                // child: AlertDialog(
+                                //   title: Text('Remover Usuário'),
+                                //   content: Text ('Gostaria de remover o usuário ${widget.user.name}?'),
+                                // ),
+                              );
+                            },
                           ),
                         ),
                         Container(
