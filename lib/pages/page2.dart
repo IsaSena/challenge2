@@ -42,17 +42,10 @@ class _Page2State extends State<Page2> { //criou um construtor pra passar o int
 
   @override
   Widget build(BuildContext context) {
-    //print("FAVORITO ? - $favorito");
-    // final param = ModalRoute.of(context)?.settings.arguments
-    //     as Map<String, dynamic>; //pode vir nulo mas não virá
-    // final String name = param['name'];
-    // final String email = param['email'];
-    // final String profileImage = param['profileImage'];
-    // final String contact = param['contact'];
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, _) {
-        final selectedUser = ref.read(listaProvider)[user];
-        //print(selectedUser.name);
+        final selectedUser = ref.watch(listaUsersProvider)[user];
+        //final favorited = ref.read(listaProvider.notifier).state[user] = User();
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -60,8 +53,7 @@ class _Page2State extends State<Page2> { //criou um construtor pra passar o int
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 275, //MediaQuery.of(context).size.height * ?.?,
-                    //color: Themes.Azul,
+                    height: 275,
                     decoration: BoxDecoration(
                       color: Themes.Azul,
                       borderRadius: const BorderRadius.only(
@@ -145,16 +137,13 @@ class _Page2State extends State<Page2> { //criou um construtor pra passar o int
                                             Navigator.of(context).pop();
                                           }, child: Text('Cancelar'),),
                                           TextButton(onPressed: () {
-                                            //profiles.remove(widget.user);
+                                            final userController = ref.read(listaUsersProvider.notifier); //pega o notificador de estado e acessa a lista
+                                            userController.delete(user); //deleta o usuário pelo index passado -> poderia ser id, mudar no provider
                                             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Page1(),),);
                                           }, child: Text('Remover'),),
                                         ],
                                       );
                                     },
-                                    // child: AlertDialog(
-                                    //   title: Text('Remover Usuário'),
-                                    //   content: Text ('Gostaria de remover o usuário ${widget.user.name}?'),
-                                    // ),
                                   );
                                 },
                               ),
@@ -323,25 +312,6 @@ class _Page2State extends State<Page2> { //criou um construtor pra passar o int
                       ],
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(10.0),
-                  //   child: Container(
-                  //     width: 367,
-                  //     height: 57,
-                  //     child: ElevatedButton.icon(
-                  //       style: style,
-                  //       onPressed: () {},
-                  //       icon: Icon(
-                  //         Icons.chat_bubble,
-                  //         color: Colors.white,
-                  //       ),
-                  //       label: Text(
-                  //         'Enviar um e-mail',
-                  //         style: TextStyle(color: Colors.white),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

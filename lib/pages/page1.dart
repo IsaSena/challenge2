@@ -8,80 +8,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:challenge2/pages/infos.dart';
 
 class Page1 extends StatefulWidget {
-  //Consumer tbm?
   const Page1({super.key});
 
   @override
   State<Page1> createState() => _Page1State();
 }
 
-// final List<Infos> profiles = [
-//   //lista profiles do tipo Infos
-//   Infos(
-//     name: 'Isabela',
-//     email: 'isabela@gmail.com',
-//     profileImage: 'assets/image/img2.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: true,
-//   ),
-//   Infos(
-//     name: 'Vinicius',
-//     email: 'vinicius@gmail.com',
-//     profileImage: 'assets/image/img3.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-//   Infos(
-//     name: 'Regina',
-//     email: 'regina@gmail.com',
-//     profileImage: 'assets/image/img4.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-//   Infos(
-//     name: 'Guilherme',
-//     email: 'guilherme@gmail.com',
-//     profileImage: 'assets/image/img5.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-//   Infos(
-//     name: 'Lucas',
-//     email: 'lucas@gmail.com',
-//     profileImage: 'assets/image/img6.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-//   Infos(
-//     name: 'Havila',
-//     email: 'havila@gmail.com',
-//     profileImage: 'assets/image/img7.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-//   Infos(
-//     name: 'Fernando',
-//     email: 'fernando@gmail.com',
-//     profileImage: 'assets/image/img8.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-//   Infos(
-//     name: 'Natalia',
-//     email: 'natalia@gmail.com',
-//     profileImage: 'assets/image/img9.jpg',
-//     contact: '(62) 99999-9999',
-//     favorito: false,
-//   ),
-// ];
-
 class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     //print('Oi');
     return Consumer(builder: (BuildContext context, WidgetRef ref, _) {
-      final lista = ref.read(
-          listaProvider); //variável que irá ficar de olho na referência dentro do provider
+      final lista = ref.watch(
+          listaUsersProvider); //variável que irá ficar de olho na referência dentro do provider
       //quando o valor troca, rebuilda o widget
       return Scaffold(
         body: SafeArea(
@@ -175,21 +114,23 @@ class _Page1State extends State<Page1> {
                                 user: index,
                               ),
                             ),
-                          )
-                              .then(
-                            (value) {
-                              //executa apos o pop ocorrer
-                              if (lista[index].favorito == true) {
-                                setState(
-                                  () {
-                                    lista[index].favorito == true;
-                                  },
-                                );
-                                //print(profiles[index].favorito);
-                              }
-                              //print('aaaaaa');
-                            },
                           );
+                          //     .then(
+                          //   (value) {
+                          //     //executa apos o pop ocorrer
+                          //     if (lista[index].favorito == true) {
+                          //       setState(
+                          //         () {
+                          //           lista[index].favorito == true;
+                          //         },
+                          //       );
+                          //       //print(profiles[index].favorito);
+                          //     }
+                          //     //print('aaaaaa');
+                          //   },
+                          // );
+                          //final userController = ref.read(listaUsersProvider.notifier);
+                          // userController.
                         },
                         child: SizedBox(
                           height: 130,
@@ -251,65 +192,10 @@ class _Page1State extends State<Page1> {
                                                   'assets/icons/yellowVector.svg'),
                                             )
                                           : Container(),
-                                      // profiles[index].favorito
-                                      //     ? Container(
-                                      //       margin: const EdgeInsets.only(top: 6),
-                                      //         child: SvgPicture.asset(
-                                      //             'assets/icons/yellowVector.svg')
-                                      //         // child: IconButton(
-                                      //         //   icon: SvgPicture.asset(
-                                      //         //       profiles[index].favorito
-                                      //         //           ? 'assets/icons/yellowVector.svg'
-                                      //         //           : 'assets/icons/vector.svg'),
-                                      //         //   iconSize: 15,
-                                      //         //   onPressed: null, //tira o onPressed
-                                      //         // ),
-                                      //         )
-                                      //     : Container(),
                                     ],
                                   ),
                                 ),
                               ),
-                              // Container(
-                              //   margin: const EdgeInsets.only(left: 10),
-                              //   child: IconButton(
-                              //     icon: const Icon(Icons.arrow_forward_ios),
-                              //     onPressed: () {
-                              //       Navigator.of(context)
-                              //           .push(
-                              //         MaterialPageRoute(
-                              //           // settings: RouteSettings(
-                              //           //     name: 'page1',
-                              //           //     arguments: {
-                              //           //       'name': profiles[index].name,
-                              //           //       'email': profiles[index].email,
-                              //           //       'profileImage':
-                              //           //           profiles[index].profileImage,
-                              //           //       'contact': profiles[index].contact,
-                              //           //     }),
-                              //           builder: (context) => Page2(
-                              //             user: profiles[index],
-                              //           ),
-                              //         ),
-                              //       )
-                              //           .then(
-                              //         (value) {
-                              //           //executa apos o pop ocorrer
-                              //           if (profiles[index].favorito == true) {
-                              //             setState(
-                              //               () {
-                              //                 profiles[index].favorito == true;
-                              //               },
-                              //             );
-                              //             //print(profiles[index].favorito);
-                              //           }
-                              //           //print('aaaaaa');
-                              //         },
-                              //       );
-                              //       //print('alo');
-                              //     },
-                              //   ),
-                              // ),
                               const IconButton(
                                 icon: Icon(Icons.arrow_forward_ios_rounded),
                                 onPressed: null,
@@ -322,9 +208,6 @@ class _Page1State extends State<Page1> {
                   ),
                 ),
               ),
-              // FloatingActionButton(
-              //     child: Icon(Icons.add),
-              //     onPressed: (){})
             ],
           ),
         ),
