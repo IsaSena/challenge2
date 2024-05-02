@@ -138,6 +138,8 @@ class UserController extends StateNotifier<List<Infos>> {
   UserController() : super(listaInicial);
 
   addUser(Infos user) {
+
+
     final newUser = state; //cria uma cópia do estado
     newUser.add(user); //adiciona um novo user no novo estado
     state = newUser; // o estado original é substituído pela nova lista
@@ -157,13 +159,4 @@ class UserController extends StateNotifier<List<Infos>> {
 }
 
 
-//final teste = StateProvider((ref) => true); //=> significa o return
-
-
-
-//retorno é bool, usar para favorito?
-//final nome = StateProvider<String>((ref) => ''); //posso tipar <>
-//useProvider and ref.read
-//state é o valor da variável
-//dispose limpa a memória
-//trocar stateless por consumer
+final userSelectedProvider = StateProvider<Infos?>((ref) => null);

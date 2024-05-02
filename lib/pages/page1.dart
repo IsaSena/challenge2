@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:challenge2/pages/infos.dart';
 
 class Page1 extends StatefulWidget {
   const Page1({super.key});
@@ -19,8 +18,7 @@ class _Page1State extends State<Page1> {
   Widget build(BuildContext context) {
     //print('Oi');
     return Consumer(builder: (BuildContext context, WidgetRef ref, _) {
-      final lista = ref.watch(
-          listaUsersProvider); //variável que irá ficar de olho na referência dentro do provider
+      final lista = ref.watch(listaUsersProvider); //variável que irá ficar de olho na referência dentro do provider
       //quando o valor troca, rebuilda o widget
       return Scaffold(
         body: SafeArea(
@@ -107,11 +105,15 @@ class _Page1State extends State<Page1> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
+                          final userSelectedController = ref.read(userSelectedProvider.notifier);
+                          userSelectedController.state = lista[index];
+
+
                           Navigator.of(context)
                               .push(
                             MaterialPageRoute(
                               builder: (context) => Page2(
-                                user: index,
+                                user: lista[index],
                               ),
                             ),
                           );
