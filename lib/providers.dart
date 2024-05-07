@@ -138,20 +138,19 @@ class UserController extends StateNotifier<List<Infos>> {
   UserController() : super(listaInicial);
 
   addUser(Infos user) {
-
-
     final newUser = state; //cria uma cópia do estado
     newUser.add(user); //adiciona um novo user no novo estado
     state = newUser; // o estado original é substituído pela nova lista
   }
 
   update() {
-
+    //para atualizar o coração?
+    // pega pelo index e troca o state
   }
 
-  delete(int index) {
-    if (index > 0 && index <= listaInicial.length){
-      state = List<Infos>.from(state)..removeAt(index);
+  delete(int id) {
+    if (id > 0 && id <= listaInicial.length){
+      state = List<Infos>.from(state)..remove(id);
       //cria uma cópia do estado para não mexer diretamente na lista
       //e deleta pelo índice
     }
@@ -159,4 +158,6 @@ class UserController extends StateNotifier<List<Infos>> {
 }
 
 
-final userSelectedProvider = StateProvider<Infos?>((ref) => null);
+final userSelectedProvider = StateProvider<Infos?>((ref) {
+
+});

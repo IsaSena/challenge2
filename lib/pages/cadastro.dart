@@ -1,4 +1,5 @@
 import 'package:challenge2/pages/infos.dart';
+import 'package:challenge2/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -45,21 +46,12 @@ class _CadastroState extends State<Cadastro> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
+                  BlueContainer(
                     height: MediaQuery.of(context).size.height * 0.128,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Themes.Azul,
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(12.0),
-                        bottomRight: Radius.circular(12.0),
-                      ),
-                    ),
                     child: Row(
                       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
-                          //está torto como não ficar?
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
@@ -80,28 +72,23 @@ class _CadastroState extends State<Cadastro> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                'Cadastrar Usuário',
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
+                              CommonText(title: 'Cadastrar Usuário', size: 24, color: Colors.white,),
+                              // Text(
+                              //   'Cadastrar Usuário',
+                              //   style: TextStyle(
+                              //       fontSize: 24,
+                              //       fontWeight: FontWeight.bold,
+                              //       color: Colors.white),
+                              // ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Informe os dados do usuário',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: CommonText(title: 'Informe os dados do usuário', size: 20),
                   ),
                   Form(
                     key: _formKey,
@@ -110,13 +97,7 @@ class _CadastroState extends State<Cadastro> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Nome completo',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          const CommonText(title: 'Nome completo', size: 16),
                           Container(
                             margin: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.01,
@@ -143,13 +124,7 @@ class _CadastroState extends State<Cadastro> {
                               ),
                             ),
                           ),
-                          const Text(
-                            'Contato',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          const CommonText(title: 'Contato', size: 16),
                           Container(
                             margin: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.01,
@@ -177,13 +152,7 @@ class _CadastroState extends State<Cadastro> {
                               },
                             ),
                           ),
-                          const Text(
-                            'E-mail',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          const CommonText(title: 'E-mail', size: 16),
                           Container(
                             margin: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.01,
@@ -222,12 +191,7 @@ class _CadastroState extends State<Cadastro> {
                                         //print(isChecked);
                                       });
                                     }),
-                                const Text(
-                                  'Favorito',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                                const CommonText(title: 'Favorito', size: 16),
                               ],
                             ),
                           ),
@@ -259,14 +223,7 @@ class _CadastroState extends State<Cadastro> {
                         }
                         _formKey.currentState!.validate();
                       },
-                      child: const Text(
-                        'Confirmar',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: const CommonText(title: 'Confirmar', size: 22, color: Colors.white,),
                     ),
                   )
                 ],
