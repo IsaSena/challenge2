@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:challenge2/pages/infos.dart';
+import 'package:challenge2/data/data.dart';
+
 
 final listaInicial = [Infos(
   id: 1,
@@ -143,14 +144,39 @@ class UserController extends StateNotifier<List<Infos>> {
     state = newUser; // o estado original é substituído pela nova lista
   }
 
-  update() {
+  Infos? update(int id) {
     //para atualizar o coração?
     // pega pelo index e troca o state
+    if (id > 0 && id <= listaInicial.length){
+      state = List<Infos>.from(state); //pega o estado da lista
+      if( id > 0 && id < listaInicial.length){
+        for ( int i = 0; i <= listaInicial.length; i++){
+          if( state[i].id == id){
+            state[i].favorito = !state[i].favorito;
+            //state = state;
+            return state[i];
+            // break;
+          }
+        }
+      }
+      //cria uma cópia do estado para não mexer diretamente na lista
+      //e deleta pelo índice
+    }
+    return null;
+
   }
 
   delete(int id) {
     if (id > 0 && id <= listaInicial.length){
-      state = List<Infos>.from(state)..remove(id);
+      state = List<Infos>.from(state);
+      if( id > 0 && id < listaInicial.length){
+        for ( int i = 0; i <= listaInicial.length; i++){
+          if( state[i].id == id){
+            state.removeAt(i);
+            break;
+          }
+        }
+      }
       //cria uma cópia do estado para não mexer diretamente na lista
       //e deleta pelo índice
     }
@@ -159,5 +185,5 @@ class UserController extends StateNotifier<List<Infos>> {
 
 
 final userSelectedProvider = StateProvider<Infos?>((ref) {
-
+  return null; //estado inicial é null
 });

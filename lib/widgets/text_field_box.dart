@@ -24,8 +24,7 @@ class TextFieldBox extends StatelessWidget {
           hintText: 'Digite aqui...',
           border: InputBorder.none,
           // Remove a borda do TextField
-          contentPadding: EdgeInsets.all(
-              5), // Ajusta o espaçamento interno
+          contentPadding: EdgeInsets.all(5), // Ajusta o espaçamento interno
         ),
       ),
     );

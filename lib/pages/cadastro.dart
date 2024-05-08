@@ -1,5 +1,6 @@
-import 'package:challenge2/pages/infos.dart';
+import 'package:challenge2/data/data.dart';
 import 'package:challenge2/widgets/widgets.dart';
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:challenge2/theme/theme.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -40,9 +41,10 @@ class _CadastroState extends State<Cadastro> {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-        builder: (BuildContext context, WidgetRef ref, _) {
+      builder: (BuildContext context, WidgetRef ref, _) {
         return Scaffold(
-          body: SafeArea(
+          body: ColorfulSafeArea(
+            color: Themes.Azul,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -72,14 +74,11 @@ class _CadastroState extends State<Cadastro> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              CommonText(title: 'Cadastrar Usuário', size: 24, color: Colors.white,),
-                              // Text(
-                              //   'Cadastrar Usuário',
-                              //   style: TextStyle(
-                              //       fontSize: 24,
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.white),
-                              // ),
+                              CommonText(
+                                title: 'Cadastrar Usuário',
+                                size: 24,
+                                color: Colors.white,
+                              ),
                             ],
                           ),
                         ),
@@ -88,7 +87,8 @@ class _CadastroState extends State<Cadastro> {
                   ),
                   const Padding(
                     padding: EdgeInsets.all(25.0),
-                    child: CommonText(title: 'Informe os dados do usuário', size: 20),
+                    child: CommonText(
+                        title: 'Informe os dados do usuário', size: 20),
                   ),
                   Form(
                     key: _formKey,
@@ -146,7 +146,9 @@ class _CadastroState extends State<Cadastro> {
                                 filled: true,
                               ),
                               validator: (value) {
-                                return (value == null || value.isEmpty || value.length == 14)
+                                return (value == null ||
+                                        value.isEmpty ||
+                                        value.length == 14)
                                     ? 'Preencha o campo com o dado solicitado!'
                                     : null;
                               },
@@ -181,16 +183,19 @@ class _CadastroState extends State<Cadastro> {
                             child: Row(
                               children: [
                                 Checkbox(
-                                    //depois verificar a cor de fundo
-                                    checkColor: Colors.black,
-                                    //fillColor: ,
-                                    value: isChecked,
-                                    onChanged: (bool? value) {
-                                      setState(() {
+                                  //depois verificar a cor de fundo
+                                  checkColor: Colors.black,
+                                  //fillColor: ,
+                                  value: isChecked,
+                                  onChanged: (bool? value) {
+                                    setState(
+                                      () {
                                         isChecked = value!;
                                         //print(isChecked);
-                                      });
-                                    }),
+                                      },
+                                    );
+                                  },
+                                ),
                                 const CommonText(title: 'Favorito', size: 16),
                               ],
                             ),
@@ -205,7 +210,7 @@ class _CadastroState extends State<Cadastro> {
                     child: ElevatedButton(
                       style: style,
                       onPressed: () {
-                        if(_formKey.currentState!.validate() == true){
+                        if (_formKey.currentState!.validate() == true) {
                           final newCad = ref.watch(listaUsersProvider);
 
                           Infos user = Infos(
@@ -223,7 +228,11 @@ class _CadastroState extends State<Cadastro> {
                         }
                         _formKey.currentState!.validate();
                       },
-                      child: const CommonText(title: 'Confirmar', size: 22, color: Colors.white,),
+                      child: const CommonText(
+                        title: 'Confirmar',
+                        size: 22,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],
@@ -231,7 +240,7 @@ class _CadastroState extends State<Cadastro> {
             ),
           ),
         );
-      }
+      },
     );
   }
 }

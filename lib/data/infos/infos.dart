@@ -39,6 +39,7 @@ class Infos {
       email: email ?? this.email,
       contact: contact ?? this.contact,
       favorito: favorito ?? this.favorito,
+      profileImage: profileImage ?? this.profileImage,
     );
     return newInfo;
   }

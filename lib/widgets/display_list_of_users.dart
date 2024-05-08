@@ -1,4 +1,5 @@
 import 'package:challenge2/providers.dart';
+import 'package:challenge2/widgets/user_photo_container.dart';
 import 'package:challenge2/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,20 +15,22 @@ class DisplayListOfUsers extends ConsumerWidget {
       itemCount: lista.length,
       itemBuilder: (context, index) {
         return GestureDetector(
+          //Poderia ser InkWell
           onTap: () {
             final userSelectedController =
-                ref.read(userSelectedProvider.notifier);
+                ref.watch(userSelectedProvider.notifier);
             userSelectedController.state = lista[index];
 
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => Page2(
-                  user: lista[index],
-                ),
+                builder: (context) => const Page2(
+                    //user: lista[index],
+                    ),
               ),
             );
           },
-          child: SizedBox(
+          child: Container(
+            //SizedBox não aceita o clique em toda a área
             height: 130,
             width: double.infinity,
             child: Row(
@@ -35,18 +38,12 @@ class DisplayListOfUsers extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  height: 56,
-                  width: 56,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(lista[index].profileImage),
-                      fit: BoxFit.fill,
-                    ),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
+                UserPhotoContainer(
+                    width: 56,
+                    height: 56,
+                    borderRadiusCircular: 50,
+                    profileImage: lista[index].profileImage,
+                    focus: true,),
                 Expanded(
                   child: UsersContainer(
                       userName: lista[index].name,

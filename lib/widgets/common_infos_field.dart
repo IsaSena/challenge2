@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:challenge2/providers.dart';
 import 'package:challenge2/widgets/widgets.dart';
-
-import '../pages/infos.dart';
+import 'package:challenge2/data/data.dart';
 
 class CommonInfoField extends ConsumerWidget {
   const CommonInfoField({super.key, required this.selectedUser});
